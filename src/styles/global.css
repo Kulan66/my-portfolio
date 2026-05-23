@@ -33,3 +33,28 @@
   --color-indigo-400: #818cf8;
   --color-indigo-600: #4f46e5;
 }
+
+@keyframes blob-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(18px, -22px) scale(1.06); }
+}
+@keyframes blob-b {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(-14px, 18px) scale(0.96); }
+}
+@keyframes blob-c {
+  0%, 100% { transform: translate(-50%, -50%); }
+  33%       { transform: translate(calc(-50% + 10px), calc(-50% + 12px)); }
+  66%       { transform: translate(calc(-50% - 8px), calc(-50% - 6px)); }
+}
+@keyframes orb {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+
+.animate-blob-a  { animation: blob-a  8s ease-in-out infinite; }
+.animate-blob-b  { animation: blob-b 10s ease-in-out infinite; }
+.animate-blob-c  { animation: blob-c 12s ease-in-out infinite; }
+.animate-orb-1   { animation: orb 4s ease-in-out infinite; }
+.animate-orb-2   { animation: orb 5s 0.8s ease-in-out infinite; }
+.animate-orb-3   { animation: orb 6s 1.6s ease-in-out infinite; }
