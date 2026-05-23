@@ -161,7 +161,7 @@ import '../styles/global.css';
           <div class="space-y-6">
             <!-- Cardiff Met Degrees -->
             <div class="flex items-start gap-4 p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-blue-200 hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-              <img src="https://careerhub.co.uk/wp-content/uploads/cardiff.jpg" alt="Cardiff Met Logo" class="w-16 h-16 object-contain bg-white p-2 rounded-lg shadow-sm hover:scale-110 transition-transform duration-300" />
+              <img src="https://upload.wikimedia.org/wikipedia/en/e/ef/Cardiff_Metropolitan_University_logo.svg" alt="Cardiff Met Logo" class="w-16 h-16 object-contain bg-white p-2 rounded-lg shadow-sm hover:scale-110 transition-transform duration-300" />
               <div>
                 <h3 class="font-bold text-lg text-slate-900">BSc (Hons) Software Engineering</h3>
                 <p class="text-slate-600 text-sm">Cardiff Metropolitan University (ICBT Campus)</p>
@@ -176,7 +176,7 @@ import '../styles/global.css';
 
             <!-- DS Senanayake -->
             <div class="flex items-start gap-4 p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-cyan-200 hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVLBawp8xNVsZZnqIv7NTXOap4oynFjSZ2Wg&s" alt="DSSC Crest" class="w-16 h-16 object-contain bg-white p-2 rounded-lg shadow-sm hover:scale-110 transition-transform duration-300" />
+              <img src="https://upload.wikimedia.org/wikipedia/en/0/02/D_S_Senanayake_College_Crest.png" alt="DSSC Crest" class="w-16 h-16 object-contain bg-white p-2 rounded-lg shadow-sm hover:scale-110 transition-transform duration-300" />
               <div>
                 <h3 class="font-bold text-lg text-slate-900">G.C.E. Advanced Level</h3>
                 <p class="text-slate-600 text-sm">D.S. Senanayake College</p>
@@ -198,29 +198,62 @@ import '../styles/global.css';
           <h2 class="text-3xl font-extrabold mb-10 flex items-center gap-3">
             <span class="w-2 h-8 bg-cyan-500 rounded-full"></span> Professional Certificates
           </h2>
-          <div class="grid gap-4">
-            <div class="p-6 rounded-2xl bg-white border border-slate-200 hover:shadow-xl hover:scale-[1.02] hover:-translate-y-1 hover:border-blue-300 transition-all duration-300 group">
-              <h3 class="font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Full-Stack Engineer - AI Professional Certification</h3>
-              <p class="text-slate-500 text-xs mb-2">Conducted by STEM Link | Duration: 4 Months</p>
-              <p class="text-slate-600 text-sm">Completed MERN stack, LLMs, RAG pipelines, Vector DBs, and built Smart Hotel Discovery & Booking Platform.</p>
+          <div class="grid gap-6">
+            
+            <!-- STEM Link Certificate -->
+            <div class="p-4 rounded-2xl bg-white border border-slate-200 hover:shadow-xl hover:scale-[1.02] hover:-translate-y-1 hover:border-blue-300 transition-all duration-300 group flex flex-col sm:flex-row gap-4 items-center">
+              <div class="w-full sm:w-1/3 aspect-[4/3] rounded-lg overflow-hidden border border-slate-100 bg-slate-50 flex-shrink-0">
+                <img src="/cert-stemlink.jpg" alt="STEM Link Certificate" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
+              </div>
+              <div class="flex-1 text-center sm:text-left">
+                <h3 class="font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Full-Stack Engineer - AI Professional</h3>
+                <p class="text-slate-500 text-xs mb-2">Conducted by STEM Link | 4 Months</p>
+                <p class="text-slate-600 text-xs">MERN stack, LLMs, RAG pipelines, Vector DBs. Built Smart Hotel Discovery & Booking Platform.</p>
+              </div>
             </div>
             
-            <div class="p-6 rounded-2xl bg-white border border-slate-200 hover:shadow-xl hover:scale-[1.02] hover:-translate-y-1 hover:border-blue-300 transition-all duration-300 group">
-              <h3 class="font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Docker Foundations Professional Certification</h3>
-              <p class="text-slate-500 text-xs mb-2">Conducted by LinkedIn Learning & Docker</p>
-              <p class="text-slate-600 text-sm">Demonstrating proficiency in containerization and Docker products.</p>
+            <!-- Docker Certificate -->
+            <div class="p-4 rounded-2xl bg-white border border-slate-200 hover:shadow-xl hover:scale-[1.02] hover:-translate-y-1 hover:border-blue-300 transition-all duration-300 group flex flex-col sm:flex-row gap-4 items-center">
+              <div class="w-full sm:w-1/3 aspect-[4/3] rounded-lg overflow-hidden border border-slate-100 bg-slate-50 flex-shrink-0">
+                <img src="/cert-docker.jpg" alt="Docker Certificate" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
+              </div>
+              <div class="flex-1 text-center sm:text-left">
+                <h3 class="font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Docker Foundations Professional</h3>
+                <p class="text-slate-500 text-xs mb-2">LinkedIn Learning & Docker</p>
+                <p class="text-slate-600 text-xs">Demonstrating proficiency in containerization and core Docker products.</p>
+              </div>
             </div>
 
-            <div class="p-6 rounded-2xl bg-white border border-slate-200 hover:shadow-xl hover:scale-[1.02] hover:-translate-y-1 hover:border-blue-300 transition-all duration-300 group">
-              <h3 class="font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Microsoft Azure Fundamentals (AZ-900)</h3>
-              <p class="text-slate-500 text-xs mb-2">Conducted by LinkedIn Learning / Microsoft Press</p>
-              <p class="text-slate-600 text-sm">Gaining foundational knowledge of Microsoft Azure cloud services and data governance.</p>
+            <!-- Azure Certificate -->
+            <div class="p-4 rounded-2xl bg-white border border-slate-200 hover:shadow-xl hover:scale-[1.02] hover:-translate-y-1 hover:border-blue-300 transition-all duration-300 group flex flex-col sm:flex-row gap-4 items-center">
+              <div class="w-full sm:w-1/3 aspect-[4/3] rounded-lg overflow-hidden border border-slate-100 bg-slate-50 flex-shrink-0">
+                <img src="/cert-azure.jpg" alt="Azure Certificate" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
+              </div>
+              <div class="flex-1 text-center sm:text-left">
+                <h3 class="font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Microsoft Azure Fundamentals (AZ-900)</h3>
+                <p class="text-slate-500 text-xs mb-2">LinkedIn Learning / Microsoft Press</p>
+                <p class="text-slate-600 text-xs">Foundational knowledge of Microsoft Azure cloud services and data governance.</p>
+              </div>
             </div>
 
-            <div class="p-6 rounded-2xl bg-white border border-slate-200 hover:shadow-xl hover:scale-[1.02] hover:-translate-y-1 hover:border-blue-300 transition-all duration-300 group">
-              <h3 class="font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Advanced Certificate Course in English Language</h3>
-              <p class="text-slate-500 text-xs">Conducted by National Institute of Business Management (NIBM)</p>
+            <!-- Dataverse Certificate -->
+            <div class="p-4 rounded-2xl bg-white border border-slate-200 hover:shadow-xl hover:scale-[1.02] hover:-translate-y-1 hover:border-blue-300 transition-all duration-300 group flex flex-col sm:flex-row gap-4 items-center">
+              <div class="w-full sm:w-1/3 aspect-[4/3] rounded-lg overflow-hidden border border-slate-100 bg-slate-50 flex-shrink-0">
+                <img src="/cert-dataverse.jpg" alt="Dataverse Certificate" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
+              </div>
+              <div class="flex-1 text-center sm:text-left">
+                <h3 class="font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Microsoft Dataverse for Power Apps / Automate</h3>
+                <p class="text-slate-500 text-xs mb-2">Udemy | Date: May 4, 2026</p>
+                <p class="text-slate-600 text-xs">Advanced data structures, automation, and integrations within the Microsoft Power Platform ecosystem.</p>
+              </div>
             </div>
+
+            <!-- NIBM (No Image Provided) -->
+            <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:shadow-md hover:-translate-y-1 hover:border-blue-200 transition-all duration-300">
+              <h3 class="font-bold text-slate-900 mb-1">Advanced Certificate in English Language</h3>
+              <p class="text-slate-500 text-sm">National Institute of Business Management (NIBM)</p>
+            </div>
+
           </div>
         </div>
         
