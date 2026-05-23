@@ -99,49 +99,90 @@ import '../styles/global.css';
       </div>
     </section>
 
-    <!-- Experience Section -->
+    <!-- Experience Section (LinkedIn Style) -->
     <section id="experience" class="py-24 px-6 bg-slate-50">
       <div class="max-w-4xl mx-auto">
         <h2 class="text-3xl font-extrabold mb-12 flex items-center gap-3">
           <span class="w-2 h-8 bg-blue-600 rounded-full"></span> Professional Experience
         </h2>
         
-        <div class="space-y-12 relative before:absolute before:inset-0 before:ml-2.5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
+        <div class="space-y-8">
           
           <!-- Job 1 -->
-          <div class="relative pl-10 md:pl-0">
-            <div class="md:w-1/2 md:pr-12 md:text-right md:ml-auto">
-              <div class="absolute left-0 md:left-1/2 md:-ml-2.5 top-2 w-5 h-5 bg-blue-600 rounded-full border-4 border-slate-50 shadow"></div>
-              <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1.5 hover:border-blue-200 transition-all duration-300">
-                <h3 class="text-xl font-bold text-slate-900">Associate Software Engineer</h3>
-                <p class="text-blue-600 font-medium mb-1">AIA Sri Lanka - IT Department</p>
-                <p class="text-slate-500 text-sm mb-4">March 2026 - Present | AIA Tower, Colombo 7</p>
-                <ul class="text-slate-600 text-sm space-y-2 text-left list-disc list-inside">
-                  <li>Develop and maintain enterprise applications following coding standards.</li>
-                  <li>Hands-on experience with Microsoft Power Platform for developing business applications and automating enterprise processes.</li>
-                  <li>Maintain less than 5% bugs in the code.</li>
-                  <li>Deliver L2/L3 BAU support for production incidents, adhering to SLA timelines to ensure 99% operational continuity.</li>
-                  <li>Develop API integrations across enterprise systems (ESB).</li>
-                </ul>
+          <div class="group bg-white p-8 rounded-3xl shadow-sm border border-slate-200 hover:shadow-2xl hover:scale-[1.01] hover:-translate-y-1.5 hover:border-blue-300 transition-all duration-500 flex flex-col sm:flex-row gap-6 relative overflow-hidden">
+            <!-- Decorative left gradient line -->
+            <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-blue-600 to-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            
+            <!-- Logo area -->
+            <div class="flex-shrink-0">
+              <div class="w-16 h-16 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center group-hover:scale-110 group-hover:shadow-md transition-all duration-500 group-hover:border-blue-200">
+                <span class="text-xl font-black text-red-600 tracking-tighter">AIA</span>
               </div>
+            </div>
+
+            <!-- Content area -->
+            <div class="flex-1">
+              <h3 class="text-2xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors duration-300">Associate Software Engineer</h3>
+              <p class="text-slate-700 font-medium text-lg mt-1">AIA Sri Lanka · IT Department</p>
+              <p class="text-slate-500 text-sm mt-1 mb-5 flex flex-wrap items-center gap-2">
+                <span>March 2026 - Present</span>
+                <span class="w-1 h-1 bg-slate-300 rounded-full hidden sm:block"></span>
+                <span>AIA Tower, Colombo 7</span>
+              </p>
+              
+              <ul class="text-slate-600 text-sm space-y-3 list-none">
+                <li class="relative pl-5 before:absolute before:left-0 before:top-2 before:w-1.5 before:h-1.5 before:bg-blue-400 before:rounded-full group-hover:before:scale-150 before:transition-transform duration-300">
+                  Develop and maintain enterprise applications following coding standards. Hands-on experience with Microsoft Power Platform for developing business applications and automating enterprise processes.
+                </li>
+                <li class="relative pl-5 before:absolute before:left-0 before:top-2 before:w-1.5 before:h-1.5 before:bg-blue-400 before:rounded-full group-hover:before:scale-150 before:transition-transform duration-300">
+                  Maintain less than 5% bugs in the code.
+                </li>
+                <li class="relative pl-5 before:absolute before:left-0 before:top-2 before:w-1.5 before:h-1.5 before:bg-blue-400 before:rounded-full group-hover:before:scale-150 before:transition-transform duration-300">
+                  Deliver L2/L3 BAU support for production incidents, adhering to SLA timelines to ensure 99% operational continuity.
+                </li>
+                <li class="relative pl-5 before:absolute before:left-0 before:top-2 before:w-1.5 before:h-1.5 before:bg-blue-400 before:rounded-full group-hover:before:scale-150 before:transition-transform duration-300">
+                  Develop API integrations across enterprise systems (ESB).
+                </li>
+              </ul>
             </div>
           </div>
 
           <!-- Job 2 -->
-          <div class="relative pl-10 md:pl-0">
-            <div class="md:w-1/2 md:pl-12">
-              <div class="absolute left-0 md:left-1/2 md:-ml-2.5 top-2 w-5 h-5 bg-cyan-500 rounded-full border-4 border-slate-50 shadow"></div>
-              <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1.5 hover:border-cyan-200 transition-all duration-300">
-                <h3 class="text-xl font-bold text-slate-900">Software Engineering Intern</h3>
-                <p class="text-cyan-600 font-medium mb-1">AIA Sri Lanka - IT Department</p>
-                <p class="text-slate-500 text-sm mb-4">Jan 2025 - Feb 2026 | AIA Tower, Colombo 7</p>
-                <ul class="text-slate-600 text-sm space-y-2 text-left list-disc list-inside">
-                  <li>Engineered RESTful & GraphQL APIs in Software AG Designer using IBM DB2/SQL within ESB Linux systems.</li>
-                  <li>Remediated security vulnerabilities via Veracode scans and automated file transfers with SFTP scripts.</li>
-                  <li>Executed full SDLC using JAVA, Python, and PowerShell; managed deployments, Bitbucket, UAT, Azure, and OKTA CIAM.</li>
-                  <li>Provided L2 Technical Support for SQL databases and real-time Workflow issues; managed Jira CRs and technical docs.</li>
-                </ul>
+          <div class="group bg-white p-8 rounded-3xl shadow-sm border border-slate-200 hover:shadow-2xl hover:scale-[1.01] hover:-translate-y-1.5 hover:border-cyan-300 transition-all duration-500 flex flex-col sm:flex-row gap-6 relative overflow-hidden">
+            <!-- Decorative left gradient line -->
+            <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-cyan-500 to-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+            <!-- Logo area -->
+            <div class="flex-shrink-0">
+              <div class="w-16 h-16 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center group-hover:scale-110 group-hover:shadow-md transition-all duration-500 group-hover:border-cyan-200">
+                <span class="text-xl font-black text-red-600 tracking-tighter">AIA</span>
               </div>
+            </div>
+
+            <!-- Content area -->
+            <div class="flex-1">
+              <h3 class="text-2xl font-bold text-slate-900 group-hover:text-cyan-600 transition-colors duration-300">Software Engineering Intern</h3>
+              <p class="text-slate-700 font-medium text-lg mt-1">AIA Sri Lanka · IT Department</p>
+              <p class="text-slate-500 text-sm mt-1 mb-5 flex flex-wrap items-center gap-2">
+                <span>Jan 2025 - Feb 2026</span>
+                <span class="w-1 h-1 bg-slate-300 rounded-full hidden sm:block"></span>
+                <span>AIA Tower, Colombo 7</span>
+              </p>
+              
+              <ul class="text-slate-600 text-sm space-y-3 list-none">
+                <li class="relative pl-5 before:absolute before:left-0 before:top-2 before:w-1.5 before:h-1.5 before:bg-cyan-400 before:rounded-full group-hover:before:scale-150 before:transition-transform duration-300">
+                  Engineered RESTful & GraphQL APIs in Software AG Designer using IBM DB2/SQL within ESB Linux systems.
+                </li>
+                <li class="relative pl-5 before:absolute before:left-0 before:top-2 before:w-1.5 before:h-1.5 before:bg-cyan-400 before:rounded-full group-hover:before:scale-150 before:transition-transform duration-300">
+                  Remediated security vulnerabilities via Veracode scans and automated file transfers with SFTP scripts.
+                </li>
+                <li class="relative pl-5 before:absolute before:left-0 before:top-2 before:w-1.5 before:h-1.5 before:bg-cyan-400 before:rounded-full group-hover:before:scale-150 before:transition-transform duration-300">
+                  Executed full SDLC using JAVA, Python, and PowerShell; managed deployments, Bitbucket, UAT, Azure, and OKTA CIAM.
+                </li>
+                <li class="relative pl-5 before:absolute before:left-0 before:top-2 before:w-1.5 before:h-1.5 before:bg-cyan-400 before:rounded-full group-hover:before:scale-150 before:transition-transform duration-300">
+                  Provided L2 Technical Support for SQL databases and real-time Workflow issues; managed Jira CRs and technical docs.
+                </li>
+              </ul>
             </div>
           </div>
 
@@ -161,7 +202,7 @@ import '../styles/global.css';
           <div class="space-y-6">
             <!-- Cardiff Met Degrees -->
             <div class="flex items-start gap-4 p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-blue-200 hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnE1m-kP86EKt6q_gJk5WYBZcKWUHI-C2pyA&s" alt="Cardiff Met Logo" class="w-16 h-16 object-contain bg-white p-2 rounded-lg shadow-sm hover:scale-110 transition-transform duration-300" />
+              <img src="https://upload.wikimedia.org/wikipedia/en/e/ef/Cardiff_Metropolitan_University_logo.svg" alt="Cardiff Met Logo" class="w-16 h-16 object-contain bg-white p-2 rounded-lg shadow-sm hover:scale-110 transition-transform duration-300" />
               <div>
                 <h3 class="font-bold text-lg text-slate-900">BSc (Hons) Software Engineering</h3>
                 <p class="text-slate-600 text-sm">Cardiff Metropolitan University (ICBT Campus)</p>
@@ -176,7 +217,7 @@ import '../styles/global.css';
 
             <!-- DS Senanayake -->
             <div class="flex items-start gap-4 p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-cyan-200 hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVLBawp8xNVsZZnqIv7NTXOap4oynFjSZ2Wg&s" alt="DSSC Crest" class="w-16 h-16 object-contain bg-white p-2 rounded-lg shadow-sm hover:scale-110 transition-transform duration-300" />
+              <img src="https://upload.wikimedia.org/wikipedia/en/0/02/D_S_Senanayake_College_Crest.png" alt="DSSC Crest" class="w-16 h-16 object-contain bg-white p-2 rounded-lg shadow-sm hover:scale-110 transition-transform duration-300" />
               <div>
                 <h3 class="font-bold text-lg text-slate-900">G.C.E. Advanced Level</h3>
                 <p class="text-slate-600 text-sm">D.S. Senanayake College</p>
