@@ -71,23 +71,32 @@ import '../styles/global.css';
     <!-- Hero Section -->
 <section class="relative pt-32 pb-20 px-6 max-w-7xl mx-auto min-h-[90vh] flex flex-col md:flex-row items-center justify-between gap-12 overflow-hidden">
 
-  <!-- 🌌 LIGHT UNIVERSE BACKGROUND -->
-  <div class="absolute inset-0 -z-20 bg-gradient-to-b from-white via-blue-50 to-slate-100"></div>
+  <!-- 🌌 FULL SCREEN FUTURISTIC LIGHT UNIVERSE BACKGROUND -->
+  <div class="absolute inset-0 -z-20">
+
+    <!-- base sky -->
+    <div class="absolute inset-0 bg-gradient-to-b from-sky-100 via-blue-100 to-indigo-50"></div>
+
+    <!-- cosmic nebula glow -->
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(56,189,248,0.45),transparent_55%),radial-gradient(circle_at_85%_30%,rgba(99,102,241,0.35),transparent_60%),radial-gradient(circle_at_50%_80%,rgba(14,165,233,0.25),transparent_65%)]"></div>
+
+    <!-- soft global light -->
+    <div class="absolute inset-0 bg-gradient-to-tr from-blue-200/20 via-transparent to-cyan-100/20"></div>
+
+    <!-- atmospheric haze -->
+    <div class="absolute inset-0 backdrop-blur-[2px] opacity-60"></div>
+
+  </div>
 
   <!-- ✨ STAR LAYERS -->
-  <div class="absolute inset-0 -z-10 overflow-hidden">
+  <div class="absolute inset-0 -z-10 overflow-hidden mix-blend-screen">
 
-    <!-- small stars -->
     <div class="stars-small"></div>
-
-    <!-- medium stars -->
     <div class="stars-medium"></div>
-
-    <!-- glowing stars -->
     <div class="stars-glow"></div>
 
-    <!-- soft nebula glow -->
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(56,189,248,0.18),transparent_40%),radial-gradient(circle_at_70%_60%,rgba(99,102,241,0.12),transparent_45%)]"></div>
+    <!-- extra soft nebula overlay -->
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(56,189,248,0.12),transparent_40%),radial-gradient(circle_at_70%_60%,rgba(99,102,241,0.10),transparent_45%)]"></div>
 
   </div>
 
@@ -110,13 +119,17 @@ import '../styles/global.css';
     </p>
 
     <div class="flex flex-wrap gap-4 items-center">
-      <a href="#projects" class="bg-slate-900 text-white px-8 py-3.5 rounded-xl font-semibold hover:bg-slate-800 transition-all shadow-lg hover:shadow-xl hover:-translate-y-1">
+
+      <a href="#projects"
+        class="bg-slate-900 text-white px-8 py-3.5 rounded-xl font-semibold hover:bg-slate-800 transition-all shadow-lg hover:shadow-xl hover:-translate-y-1">
         Explore My Work
       </a>
 
-      <a href="#about" class="bg-white/70 backdrop-blur-md text-slate-900 border border-slate-200 px-8 py-3.5 rounded-xl font-semibold hover:bg-white transition-all hover:-translate-y-1">
+      <a href="#about"
+        class="bg-white/70 backdrop-blur-md text-slate-900 border border-slate-200 px-8 py-3.5 rounded-xl font-semibold hover:bg-white transition-all hover:-translate-y-1">
         Read Profile
       </a>
+
     </div>
 
   </div>
@@ -133,6 +146,7 @@ import '../styles/global.css';
         alt="Kulan Thamuditha"
         class="rounded-3xl shadow-2xl object-cover aspect-[4/5] w-full border border-white/60"
       />
+
     </div>
 
   </div>
@@ -146,40 +160,39 @@ import '../styles/global.css';
     width: 200%;
     height: 200%;
     background-repeat: repeat;
-    animation: moveStars 120s linear infinite;
-    opacity: 0.6;
+    animation: moveStars 140s linear infinite;
   }
 
   .stars-small {
     background-image: radial-gradient(1px 1px at 20px 30px, #94a3b8, transparent),
                       radial-gradient(1px 1px at 80px 120px, #cbd5e1, transparent),
                       radial-gradient(1px 1px at 160px 200px, #e2e8f0, transparent);
-    background-size: 200px 200px;
-    opacity: 0.5;
+    background-size: 220px 220px;
+    opacity: 0.55;
   }
 
   .stars-medium {
     background-image: radial-gradient(2px 2px at 50px 80px, #60a5fa, transparent),
                       radial-gradient(2px 2px at 140px 160px, #38bdf8, transparent);
-    background-size: 300px 300px;
-    animation-duration: 180s;
-    opacity: 0.4;
+    background-size: 320px 320px;
+    animation-duration: 200s;
+    opacity: 0.45;
   }
 
   .stars-glow {
     background-image: radial-gradient(circle at 100px 100px, rgba(56,189,248,0.8), transparent 40%),
                       radial-gradient(circle at 200px 250px, rgba(99,102,241,0.6), transparent 45%);
     filter: blur(1px);
-    animation-duration: 240s;
-    opacity: 0.25;
+    animation-duration: 260s;
+    opacity: 0.3;
   }
 
   @keyframes moveStars {
     from { transform: translateY(0px); }
-    to { transform: translateY(-1000px); }
+    to { transform: translateY(-1200px); }
   }
 
-  /* floating animation for image */
+  /* floating animation */
   .animate-float {
     animation: float 6s ease-in-out infinite;
   }
