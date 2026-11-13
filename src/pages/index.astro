@@ -9,6 +9,7 @@ import '../styles/global.css';
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kulan Thamuditha | Software Engineer</title>
+    <script is:inline>document.documentElement.classList.add('js');</script>
     <style>
       /* Custom Animations */
       @keyframes fadeInUp {
@@ -48,6 +49,129 @@ import '../styles/global.css';
         border: 1px solid rgba(255, 255, 255, 0.5);
       }
     </style>
+
+    <!-- ✨ PERSONALITY STYLES (global so JS-created elements are styled too) -->
+    <style is:global>
+      /* 👋 Waving hand */
+      @keyframes wave {
+        0% { transform: rotate(0deg); }
+        15% { transform: rotate(16deg); }
+        30% { transform: rotate(-8deg); }
+        45% { transform: rotate(14deg); }
+        60% { transform: rotate(-4deg); }
+        75% { transform: rotate(10deg); }
+        100% { transform: rotate(0deg); }
+      }
+      .wave {
+        display: inline-block;
+        transform-origin: 70% 70%;
+        animation: wave 2s ease-in-out 0.9s 2;
+        cursor: default;
+      }
+      .wave:hover { animation: wave 1.2s ease-in-out; }
+
+      /* ⌨️ Typewriter caret */
+      @keyframes caretBlink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+      .type-caret {
+        display: inline-block;
+        width: 3px;
+        height: 0.85em;
+        margin-left: 4px;
+        vertical-align: -0.05em;
+        background: #0891b2;
+        border-radius: 2px;
+        animation: caretBlink 1s steps(1) infinite;
+      }
+
+      /* 🟢 Status text fade */
+      #status-text { transition: opacity 0.3s ease; }
+
+      /* 💬 Tech icon hover captions */
+      .tech-card { position: relative; }
+      .tech-card:hover { z-index: 30; }
+      .tech-card::after {
+        content: attr(data-caption);
+        position: absolute;
+        left: 50%;
+        bottom: calc(100% + 10px);
+        transform: translate(-50%, 6px);
+        width: max-content;
+        max-width: 12rem;
+        text-align: center;
+        background: #0f172a;
+        color: #e2e8f0;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.72rem;
+        line-height: 1.3;
+        padding: 0.45rem 0.7rem;
+        border-radius: 0.55rem;
+        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.25);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+      }
+      .tech-card::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        bottom: calc(100% + 4px);
+        transform: translate(-50%, 6px);
+        border: 6px solid transparent;
+        border-top-color: #0f172a;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+      }
+      .tech-card:hover::after,
+      .tech-card:hover::before { opacity: 1; transform: translate(-50%, 0); }
+
+      /* 🖱️ Cursor trail (hero only) */
+      @keyframes trailFade {
+        from { opacity: 0.9; transform: translate(0, 0) scale(1); }
+        to { opacity: 0; transform: translate(var(--dx, 0px), 24px) scale(0.6); }
+      }
+      .trail-sym {
+        position: absolute;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-weight: 700;
+        color: #2563eb;
+        pointer-events: none;
+        white-space: nowrap;
+        animation: trailFade 0.9s ease-out forwards;
+      }
+
+      /* 🖥️ Fake terminal reveal */
+      .js .term-reveal { opacity: 0; transform: translateY(8px); transition: opacity 0.4s ease, transform 0.4s ease; }
+      .js .term-reveal:not(.show) { pointer-events: none; }
+      .js .term-reveal.show { opacity: 1; transform: none; }
+      .term-caret {
+        display: inline-block;
+        width: 8px;
+        height: 1em;
+        margin-left: 2px;
+        vertical-align: -0.15em;
+        background: #a5b4fc;
+        animation: caretBlink 1s steps(1) infinite;
+      }
+
+      /* 🐱 Mascot bounce */
+      @keyframes mascotBounce {
+        0%, 100% { transform: translateY(0) scale(1); }
+        25% { transform: translateY(-16px) scale(1.08); }
+        50% { transform: translateY(0) scale(0.95); }
+        70% { transform: translateY(-6px) scale(1.03); }
+      }
+      .mascot-bounce { animation: mascotBounce 0.65s ease-out; }
+
+      /* ♿ Respect reduced motion */
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
   </head>
   <body class="bg-slate-50 text-slate-900 font-sans antialiased selection:bg-blue-200 selection:text-blue-900">
     
@@ -55,7 +179,7 @@ import '../styles/global.css';
 <nav class="fixed w-full bg-white/30 backdrop-blur-xl backdrop-saturate-150 border-b border-white/60 shadow-[0_4px_30px_rgba(0,0,0,0.03)] z-50 transition-all duration-300">
   <div class="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
     
-    <a href="#" class="group relative text-3xl font-light tracking-[0.1em] text-slate-800 transition-all duration-300 drop-shadow-sm">
+    <a href="#" id="logo" class="group relative text-3xl font-light tracking-[0.1em] text-slate-800 transition-all duration-300 drop-shadow-sm">
       KULAN<span class="text-blue-600 font-bold">.</span>
       <span class="absolute -bottom-1 left-0 h-0.5 w-0 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
     </a>
@@ -73,7 +197,7 @@ import '../styles/global.css';
 </nav>
 
    <!-- Hero Section -->
-<section class="relative min-h-[70vh] flex items-center pt-24 pb-10 overflow-hidden">
+<section id="hero" class="relative min-h-[70vh] flex items-center pt-24 pb-10 overflow-hidden">
 
   <!-- 🌌 FULL SCREEN LIGHT BLUE BACKGROUND -->
   <div class="absolute inset-0 -z-20 bg-gradient-to-br from-slate-50 via-blue-50 to-sky-100">
@@ -106,21 +230,38 @@ import '../styles/global.css';
     
   </div>
 
+  <!-- 🖱️ Cursor trail layer (hero only) -->
+  <div id="trail" class="absolute inset-0 pointer-events-none z-20 overflow-hidden"></div>
+
   <!-- CONTENT CONTAINER -->
   <div class="relative z-10 w-full max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
 
     <!-- LEFT CONTENT -->
     <div class="flex-1 animate-fade-in relative z-10">
 
-      <div class="inline-block px-4 py-1.5 mb-4 rounded-full bg-white/70 backdrop-blur-md text-blue-800 font-semibold text-sm tracking-wide shadow-sm border border-blue-200 hover:-translate-y-1 transition-all duration-300 cursor-default">
-        Associate Software Engineer @ AIA Sri Lanka
+      <!-- 👋 Greeting -->
+      <p class="text-lg font-semibold text-slate-700 mb-3">
+        Hi, I'm Kulan <span class="wave" aria-hidden="true">👋</span>
+      </p>
+
+      <div class="flex flex-wrap items-center gap-3 mb-4">
+        <div class="inline-block px-4 py-1.5 rounded-full bg-white/70 backdrop-blur-md text-blue-800 font-semibold text-sm tracking-wide shadow-sm border border-blue-200 hover:-translate-y-1 transition-all duration-300 cursor-default">
+          Associate Software Engineer @ AIA Sri Lanka
+        </div>
+
+        <!-- 🟢 Status badge -->
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/70 backdrop-blur-md text-slate-700 font-semibold text-sm shadow-sm border border-emerald-200 hover:-translate-y-1 transition-all duration-300 cursor-default">
+          <span class="relative flex h-2.5 w-2.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+          </span>
+          <span id="status-text">Currently: fixing bugs I didn't write</span>
+        </div>
       </div>
 
-      <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 leading-tight text-slate-900">
-        Building robust <br/>
-        <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-cyan-600">
-          enterprise systems.
-        </span>
+      <!-- ⌨️ Typewriter heading -->
+      <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 leading-tight text-slate-900 min-h-[2.5em]" aria-label="Building robust enterprise systems.">
+        <span id="typewriter" class="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-cyan-600">Building robust enterprise systems.</span><span class="type-caret" aria-hidden="true"></span>
       </h1>
 
       <p class="text-lg md:text-xl text-slate-700 max-w-2xl mb-6 leading-relaxed font-medium">
@@ -500,49 +641,49 @@ import '../styles/global.css';
           
           <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
             <!-- Front End -->
-            <div class="flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-1">
+            <div data-caption="Re-rendering my life" class="tech-card flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-1">
               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" class="w-12 h-12 mb-2 group-hover:rotate-12 transition-transform duration-300" alt="React" />
               <span class="text-sm font-semibold text-slate-700">React.js</span>
             </div>
-            <div class="flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-2">
+            <div data-caption="Reactive, unlike my sleep schedule" class="tech-card flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-2">
               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vuejs/vuejs-original.svg" class="w-12 h-12 mb-2 group-hover:-rotate-12 transition-transform duration-300" alt="Vue" />
               <span class="text-sm font-semibold text-slate-700">Vue.js</span>
             </div>
-            <div class="flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-3">
+            <div data-caption="class=&quot;so many classes&quot;" class="tech-card flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-3">
               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" class="w-12 h-12 mb-2 group-hover:scale-110 transition-transform duration-300" alt="Tailwind" />
               <span class="text-sm font-semibold text-slate-700">Tailwind CSS</span>
             </div>
             
             <!-- Back End -->
-            <div class="flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-1">
+            <div data-caption="Write once, debug everywhere" class="tech-card flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-1">
               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" class="w-12 h-12 mb-2 group-hover:-translate-y-1 transition-transform duration-300" alt="Java" />
               <span class="text-sm font-semibold text-slate-700">Java</span>
             </div>
-            <div class="flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-2">
+            <div data-caption="Tiny server, big dreams" class="tech-card flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-2">
               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flask/flask-original.svg" class="w-12 h-12 mb-2 group-hover:scale-110 transition-transform duration-300" alt="Flask" />
               <span class="text-sm font-semibold text-slate-700">Flask</span>
             </div>
-            <div class="flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-3">
+            <div data-caption="app.get('/coffee') → 200 OK" class="tech-card flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-3">
               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg" class="w-12 h-12 mb-2 group-hover:rotate-12 transition-transform duration-300" alt="Express" />
               <span class="text-sm font-semibold text-slate-700">Express.js</span>
             </div>
 
             <!-- Database & Cloud -->
-            <div class="flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-1">
+            <div data-caption="SELECT * FROM talent" class="tech-card flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-1">
               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azuresqldatabase/azuresqldatabase-original.svg" class="w-12 h-12 mb-2 group-hover:scale-110 transition-transform duration-300" alt="SQL" />
               <span class="text-sm font-semibold text-slate-700">SQL</span>
             </div>
-            <div class="flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-2">
+            <div data-caption="Schema? Where we're going we don't need schemas" class="tech-card flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-2">
               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg" class="w-12 h-12 mb-2 group-hover:-rotate-12 transition-transform duration-300" alt="MongoDB" />
               <span class="text-sm font-semibold text-slate-700">MongoDB</span>
             </div>
-            <div class="flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-3">
+            <div data-caption="Cloud, but make it enterprise" class="tech-card flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-3">
               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg" class="w-12 h-12 mb-2 group-hover:-translate-y-1 transition-transform duration-300" alt="Azure" />
               <span class="text-sm font-semibold text-slate-700">Azure</span>
             </div>
 
             <!-- VCS -->
-            <div class="flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-1">
+            <div data-caption="git blame: always someone else (it was me)" class="tech-card flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-1">
               <div class="flex gap-2 mb-2">
                 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" class="w-8 h-8 group-hover:-translate-x-1 transition-transform duration-300" alt="Git" />
                 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bitbucket/bitbucket-original.svg" class="w-8 h-8 group-hover:translate-x-1 transition-transform duration-300" alt="Bitbucket" />
@@ -626,6 +767,30 @@ import '../styles/global.css';
       Reach out on any platform, I'd love to hear from you.
     </p>
 
+    <!-- 🖥️ Fake terminal -->
+    <div id="terminal" class="mx-auto max-w-xl rounded-xl overflow-hidden text-left shadow-2xl" style="background:#0b1224;border:1px solid rgba(255,255,255,0.1);">
+      <div class="flex items-center gap-2 px-4 py-2" style="background:#0f1830;border-bottom:1px solid rgba(255,255,255,0.08);">
+        <span class="w-3 h-3 rounded-full" style="background:#ef4444cc;"></span>
+        <span class="w-3 h-3 rounded-full" style="background:#f59e0bcc;"></span>
+        <span class="w-3 h-3 rounded-full" style="background:#10b981cc;"></span>
+        <span class="ml-3 text-xs" style="color:rgba(255,255,255,0.35);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;">kulan@portfolio: ~/contact</span>
+      </div>
+      <div class="p-4 text-sm leading-relaxed" style="font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#a5b4fc;min-height:150px;">
+        <div><span style="color:#34d399;">$</span> <span id="term-cmd">git commit -m "let's work together"</span><span class="term-caret"></span></div>
+        <div class="term-line term-reveal" style="color:rgba(255,255,255,0.55);">[main 7f3a9c2] let's work together</div>
+        <div class="term-line term-reveal" style="color:rgba(255,255,255,0.55);"> 1 file changed, 1 opportunity(+), 0 bugs(-)</div>
+        <div class="term-line term-reveal" style="color:#34d399;">✔ Pushed to origin/hire-kulan</div>
+      </div>
+    </div>
+
+    <!-- Connect buttons (appear after the commit) -->
+    <div id="term-buttons" class="term-reveal flex flex-wrap justify-center gap-3 mt-6">
+      <a href="mailto:kulanthamuditha66@gmail.com" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 hover:-translate-y-1 transition-all shadow-lg">Email</a>
+      <a href="https://www.linkedin.com/in/kulan-thamuditha-6b17672a7" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-500 hover:-translate-y-1 transition-all shadow-lg">LinkedIn</a>
+      <a href="https://github.com/kulan66" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-slate-800 hover:bg-slate-700 hover:-translate-y-1 transition-all shadow-lg" style="border:1px solid rgba(255,255,255,0.15);">GitHub</a>
+      <a href="https://wa.me/94760082003" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-green-500 hover:bg-green-400 hover:-translate-y-1 transition-all shadow-lg">WhatsApp</a>
+    </div>
+
     <div class="mt-6 mx-auto w-14 h-px" style="background:rgba(255,255,255,0.08);"></div>
     <p class="mt-3 text-xs" style="color:rgba(255,255,255,0.16);">kulanthamuditha66@gmail.com</p>
   </div>
@@ -634,6 +799,21 @@ import '../styles/global.css';
 <footer class="py-4 text-center border-t" style="background:#030812;border-color:rgba(255,255,255,0.05);">
   <p class="text-sm" style="color:rgba(255,255,255,0.2);">&copy; {new Date().getFullYear()} Kulan Thamuditha. Built with Astro &amp; Tailwind CSS.</p>
 </footer>
+
+<!-- 🥚 Easter egg: terminal modal + confetti -->
+<canvas id="confetti" class="fixed inset-0 pointer-events-none z-[110]" style="width:100vw;height:100vh;"></canvas>
+<div id="egg" class="fixed inset-0 z-[100] hidden items-center justify-center p-6" style="background:rgba(3,8,18,0.75);backdrop-filter:blur(4px);">
+  <div class="w-full max-w-lg rounded-xl overflow-hidden shadow-2xl" style="background:#0b1224;border:1px solid rgba(255,255,255,0.12);">
+    <div class="flex items-center gap-2 px-4 py-2" style="background:#0f1830;border-bottom:1px solid rgba(255,255,255,0.08);">
+      <span class="w-3 h-3 rounded-full" style="background:#ef4444cc;"></span>
+      <span class="w-3 h-3 rounded-full" style="background:#f59e0bcc;"></span>
+      <span class="w-3 h-3 rounded-full" style="background:#10b981cc;"></span>
+      <span class="ml-3 text-xs" style="color:rgba(255,255,255,0.35);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;">root@recruiter: ~</span>
+      <button id="egg-close" type="button" aria-label="Close" class="ml-auto text-lg leading-none" style="color:rgba(255,255,255,0.5);">&times;</button>
+    </div>
+    <pre id="egg-out" class="p-4 text-sm leading-relaxed whitespace-pre-wrap" style="font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#a5b4fc;min-height:200px;margin:0;"></pre>
+  </div>
+</div>
 
 <!-- Floating Connect Menu -->
 <div id="connect-fab" class="fixed bottom-6 right-6 z-[60] flex flex-col items-center gap-3">
@@ -662,13 +842,14 @@ import '../styles/global.css';
   <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 
-  <!-- Avatar toggle -->
+  <!-- Avatar toggle (mascot) -->
 <div class="animate-float">
   <button id="connect-toggle" type="button" aria-label="Let's Connect" aria-expanded="false"
     class="relative w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-2xl bg-purple-800 hover:scale-110 transition-transform duration-300">
-    <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Kulan&backgroundColor=7e1f86"
+    <img id="mascot" src="https://api.dicebear.com/9.x/avataaars/svg?seed=Kulan&backgroundColor=7e1f86"
       alt="Let's Connect" class="w-full h-full object-cover" referrerpolicy="no-referrer" />
   </button>
+</div>
 </div>
 
 <style>
@@ -687,12 +868,229 @@ import '../styles/global.css';
 </style>
 
 <script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+  /* ---------- ⌨️ Typewriter hero line ---------- */
+  const tw = document.getElementById('typewriter');
+  if (tw && !reduce) {
+    const phrases = [
+      'Building robust enterprise systems.',
+      'Fixing prod at 2 AM.',
+      'Turning coffee into APIs.',
+      'Blaming the cache.',
+    ];
+    let p = 0;
+    let c = phrases[0].length;
+    let deleting = true;
+    const tick = () => {
+      const full = phrases[p];
+      if (!deleting) {
+        c++;
+        tw.textContent = full.slice(0, c);
+        if (c === full.length) { deleting = true; return setTimeout(tick, 1900); }
+        return setTimeout(tick, 60);
+      }
+      c--;
+      tw.textContent = full.slice(0, c);
+      if (c === 0) { deleting = false; p = (p + 1) % phrases.length; return setTimeout(tick, 350); }
+      setTimeout(tick, 28);
+    };
+    setTimeout(tick, 2600);
+  }
+
+  /* ---------- 🟢 Status badge rotation ---------- */
+  const status = document.getElementById('status-text');
+  if (status && !reduce) {
+    const msgs = ["Currently: fixing bugs I didn't write", 'Open to opportunities'];
+    let s = 0;
+    setInterval(() => {
+      status.style.opacity = '0';
+      setTimeout(() => {
+        s = (s + 1) % msgs.length;
+        status.textContent = msgs[s];
+        status.style.opacity = '1';
+      }, 300);
+    }, 3800);
+  }
+
+  /* ---------- 🖱️ Cursor trail (hero only) ---------- */
+  const hero = document.getElementById('hero');
+  const trail = document.getElementById('trail');
+  if (hero && trail && !reduce) {
+    const syms = ['{ }', '</>', '=>', ';', '01', '()', '[]', '//'];
+    let last = 0, lx = -100, ly = -100;
+    hero.addEventListener('mousemove', (e) => {
+      const now = performance.now();
+      if (now - last < 45) return;
+      const r = hero.getBoundingClientRect();
+      const x = e.clientX - r.left;
+      const y = e.clientY - r.top;
+      if (Math.hypot(x - lx, y - ly) < 14) return;
+      last = now; lx = x; ly = y;
+      const s = document.createElement('span');
+      s.className = 'trail-sym';
+      s.textContent = syms[Math.floor(Math.random() * syms.length)];
+      s.style.left = x + 'px';
+      s.style.top = y + 'px';
+      s.style.fontSize = 10 + Math.random() * 6 + 'px';
+      s.style.setProperty('--dx', Math.random() * 40 - 20 + 'px');
+      trail.appendChild(s);
+      setTimeout(() => s.remove(), 900);
+    });
+  }
+
+  /* ---------- 🖥️ Fake terminal in contact section ---------- */
+  const term = document.getElementById('terminal');
+  if (term) {
+    const cmdEl = document.getElementById('term-cmd');
+    const lines = term.querySelectorAll('.term-line');
+    const btns = document.getElementById('term-buttons');
+    const cmd = `git commit -m "let's work together"`;
+    let started = false;
+    const run = async () => {
+      cmdEl.textContent = '';
+      for (const ch of cmd) { cmdEl.textContent += ch; await sleep(reduce ? 0 : 55); }
+      for (const l of lines) { await sleep(reduce ? 0 : 380); l.classList.add('show'); }
+      await sleep(reduce ? 0 : 400);
+      btns.classList.add('show');
+    };
+    new IntersectionObserver((entries, obs) => {
+      if (entries[0].isIntersecting && !started) { started = true; obs.disconnect(); run(); }
+    }, { threshold: 0.5 }).observe(term);
+  }
+
+  /* ---------- 🎉 Confetti ---------- */
+  function confetti() {
+    const cv = document.getElementById('confetti');
+    if (!cv || reduce) return;
+    const ctx = cv.getContext('2d');
+    cv.width = window.innerWidth;
+    cv.height = window.innerHeight;
+    const colors = ['#2563eb', '#06b6d4', '#6366f1', '#f59e0b', '#10b981', '#ef4444'];
+    const parts = Array.from({ length: 150 }, () => ({
+      x: Math.random() * cv.width,
+      y: -20 - Math.random() * cv.height * 0.5,
+      r: 4 + Math.random() * 5,
+      c: colors[Math.floor(Math.random() * colors.length)],
+      vx: -2 + Math.random() * 4,
+      vy: 2 + Math.random() * 4,
+      rot: Math.random() * 6,
+      vr: -0.2 + Math.random() * 0.4,
+    }));
+    let frames = 0;
+    (function draw() {
+      ctx.clearRect(0, 0, cv.width, cv.height);
+      parts.forEach((q) => {
+        q.x += q.vx; q.y += q.vy; q.rot += q.vr;
+        ctx.save();
+        ctx.translate(q.x, q.y);
+        ctx.rotate(q.rot);
+        ctx.fillStyle = q.c;
+        ctx.fillRect(-q.r, -q.r / 2, q.r * 2, q.r);
+        ctx.restore();
+      });
+      if (++frames < 260) requestAnimationFrame(draw);
+      else ctx.clearRect(0, 0, cv.width, cv.height);
+    })();
+  }
+
+  /* ---------- 🥚 Easter egg: sudo hire kulan ---------- */
+  const egg = document.getElementById('egg');
+  const eggOut = document.getElementById('egg-out');
+  let eggToken = 0;
+  async function openEgg() {
+    const my = ++eggToken;
+    egg.classList.remove('hidden');
+    egg.classList.add('flex');
+    eggOut.textContent = '';
+    confetti();
+    for (const ch of '$ sudo hire kulan') {
+      if (my !== eggToken) return;
+      eggOut.textContent += ch;
+      await sleep(reduce ? 0 : 60);
+    }
+    const rest = [
+      '\n[sudo] password for recruiter: ********',
+      'Verifying skills.......... OK',
+      'Checking coffee supply.... OK',
+      'Bugs in production........ 0 (probably)',
+      '\n✔ Access granted. Kulan has been hired! 🎉',
+    ];
+    for (const l of rest) {
+      await sleep(reduce ? 0 : 500);
+      if (my !== eggToken) return;
+      eggOut.textContent += '\n' + l;
+    }
+    confetti();
+  }
+  function closeEgg() {
+    eggToken++;
+    egg.classList.add('hidden');
+    egg.classList.remove('flex');
+  }
+  document.getElementById('egg-close')?.addEventListener('click', closeEgg);
+  egg?.addEventListener('click', (e) => { if (e.target === egg) closeEgg(); });
+
+  // Trigger 1: click the logo 3 times quickly
+  let logoClicks = [];
+  document.getElementById('logo')?.addEventListener('click', () => {
+    const now = Date.now();
+    logoClicks = logoClicks.filter((t) => now - t < 1500);
+    logoClicks.push(now);
+    if (logoClicks.length >= 3) { logoClicks = []; openEgg(); }
+  });
+
+  // Trigger 2: Konami code
+  const konami = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  let kBuf = [];
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') { setOpen(false); closeEgg(); return; }
+    kBuf.push(e.key.length === 1 ? e.key.toLowerCase() : e.key);
+    kBuf = kBuf.slice(-konami.length);
+    if (kBuf.join() === konami.join()) { kBuf = []; openEgg(); }
+  });
+
+  /* ---------- 🐱 Mascot avatar reactions ---------- */
   const fab = document.getElementById('connect-fab');
   const toggle = document.getElementById('connect-toggle');
+  const mascot = document.getElementById('mascot');
+  const face = (eyes) =>
+    'https://api.dicebear.com/9.x/avataaars/svg?seed=Kulan&backgroundColor=7e1f86' + (eyes ? '&eyes=' + eyes : '');
+  const faces = { base: face(''), blink: face('closed'), wink: face('wink'), happy: face('happy') };
+  Object.values(faces).forEach((u) => { const im = new Image(); im.src = u; });
+  let hovering = false;
+  let menuOpen = false;
+  const showFace = () => {
+    const u = menuOpen ? faces.happy : hovering ? faces.wink : faces.base;
+    if (mascot && mascot.getAttribute('src') !== u) mascot.setAttribute('src', u);
+  };
+  if (mascot && !reduce) {
+    const blinkLoop = async () => {
+      await sleep(2800 + Math.random() * 2500);
+      if (!hovering && !menuOpen) {
+        mascot.setAttribute('src', faces.blink);
+        await sleep(140);
+        showFace();
+      }
+      blinkLoop();
+    };
+    blinkLoop();
+  }
+  toggle?.addEventListener('mouseenter', () => { hovering = true; showFace(); });
+  toggle?.addEventListener('mouseleave', () => { hovering = false; showFace(); });
+  toggle?.addEventListener('animationend', () => toggle.classList.remove('mascot-bounce'));
 
   const setOpen = (open) => {
     fab?.classList.toggle('open', open);
     toggle?.setAttribute('aria-expanded', String(open));
+    menuOpen = open;
+    showFace();
+    if (open && toggle && !reduce) {
+      toggle.classList.remove('mascot-bounce');
+      void toggle.offsetWidth;
+      toggle.classList.add('mascot-bounce');
+    }
   };
 
   toggle?.addEventListener('click', (e) => {
@@ -701,8 +1099,5 @@ import '../styles/global.css';
   });
   document.addEventListener('click', (e) => {
     if (fab && !fab.contains(e.target)) setOpen(false);
-  });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') setOpen(false);
   });
 </script>
