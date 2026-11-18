@@ -800,17 +800,106 @@ import '../styles/global.css';
       </div>
     </section>
 
-    <!-- Technical Skills & Languages Section -->
+    <!-- Technical Tools & Languages Section -->
     <section id="skills" class="py-12 px-6 bg-white border-y border-slate-100">
       <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-10">
         
         <!-- Tech Stack -->
         <div class="md:col-span-2">
           <h2 class="text-3xl font-extrabold mb-6 flex items-center gap-3">
-            <span class="w-2 h-8 bg-blue-600 rounded-full"></span> Technical Skills
+            <span class="w-2 h-8 bg-blue-600 rounded-full"></span> Technical Tools
           </h2>
           
           <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+
+          <!-- IBM webMethods (Software AG Designer) -->
+            <div data-caption="Wiring systems together, one API at a time" class="tech-card flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-1">
+              <div class="w-12 h-12 mb-2 rounded-xl bg-blue-700 flex items-center justify-center group-hover:rotate-12 transition-transform duration-300" aria-hidden="true">
+                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                  <circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/>
+                  <path d="M8.5 6h7M7.5 8l3.5 8M16.5 8L13 16"/>
+                </svg>
+              </div>
+              <span class="text-sm font-semibold text-slate-700 text-center">webMethods</span>
+            </div>
+
+            <!-- Thunder Client -->
+            <div data-caption="200 OK, my favourite status code" class="tech-card flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-2">
+              <div class="w-12 h-12 mb-2 rounded-xl bg-violet-600 flex items-center justify-center group-hover:-rotate-12 transition-transform duration-300" aria-hidden="true">
+                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/>
+                </svg>
+              </div>
+              <span class="text-sm font-semibold text-slate-700 text-center">Thunder Client</span>
+            </div>
+
+            <!-- Dynatrace -->
+            <div data-caption="Watching prod so you don't have to" class="tech-card flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-3">
+              <div class="w-12 h-12 mb-2 rounded-xl bg-indigo-600 flex items-center justify-center group-hover:scale-110 transition-transform duration-300" aria-hidden="true">
+                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                </svg>
+              </div>
+              <span class="text-sm font-semibold text-slate-700 text-center">Dynatrace</span>
+            </div>
+
+            <!-- Apache JMeter -->
+            <div data-caption="Politely crashing servers (for science)" class="tech-card flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-1">
+              <div class="w-12 h-12 mb-2 rounded-xl bg-rose-600 flex items-center justify-center group-hover:-translate-y-1 transition-transform duration-300" aria-hidden="true">
+                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                  <path d="M4 20h16"/><rect x="5" y="11" width="3.5" height="9" rx="0.8"/><rect x="10.25" y="5" width="3.5" height="15" rx="0.8"/><rect x="15.5" y="8" width="3.5" height="12" rx="0.8"/>
+                </svg>
+              </div>
+              <span class="text-sm font-semibold text-slate-700 text-center">Apache JMeter</span>
+            </div>
+
+            <!-- ServiceNow -->
+            <div data-caption="INC000123: it works on my machine" class="tech-card flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-2">
+              <div class="w-12 h-12 mb-2 rounded-xl bg-emerald-600 flex items-center justify-center group-hover:rotate-12 transition-transform duration-300" aria-hidden="true">
+                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.8 2.8L16 9.5"/>
+                </svg>
+              </div>
+              <span class="text-sm font-semibold text-slate-700 text-center">ServiceNow</span>
+            </div>
+
+            <!-- Bitbucket & Git -->
+            <div data-caption="git blame: always someone else (it was me)" class="tech-card flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-3">
+              <div class="flex gap-2 mb-2">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bitbucket/bitbucket-original.svg" loading="lazy" decoding="async" class="w-8 h-8 mt-2 group-hover:-translate-x-1 transition-transform duration-300" alt="Bitbucket" />
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" loading="lazy" decoding="async" class="w-8 h-8 mt-2 group-hover:translate-x-1 transition-transform duration-300" alt="Git" />
+              </div>
+              <span class="text-sm font-semibold text-slate-700 text-center">Bitbucket (Git)</span>
+            </div>
+
+            <!-- Swagger -->
+            <div data-caption="Docs that actually match the API" class="tech-card flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-1">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/swagger/swagger-original.svg" loading="lazy" decoding="async" class="w-12 h-12 mb-2 group-hover:scale-110 transition-transform duration-300" alt="Swagger" />
+              <span class="text-sm font-semibold text-slate-700">Swagger</span>
+            </div>
+
+            <!-- Jira -->
+            <div data-caption="Moving tickets right, one column at a time" class="tech-card flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-2">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jira/jira-original.svg" loading="lazy" decoding="async" class="w-12 h-12 mb-2 group-hover:-rotate-12 transition-transform duration-300" alt="Jira" />
+              <span class="text-sm font-semibold text-slate-700">Jira</span>
+            </div>
+
+            <!-- Microsoft Power Platform -->
+            <div data-caption="Low code, high impact" class="tech-card flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-3">
+              <div class="w-12 h-12 mb-2 rounded-xl bg-purple-600 flex items-center justify-center group-hover:-translate-y-1 transition-transform duration-300" aria-hidden="true">
+                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                  <polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>
+                </svg>
+              </div>
+              <span class="text-sm font-semibold text-slate-700 text-center">Power Platform</span>
+            </div>
+
+            <!-- Azure (from Cloud skills) -->
+            <div data-caption="Cloud, but make it enterprise" class="tech-card flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-1">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg" loading="lazy" decoding="async" class="w-12 h-12 mb-2 group-hover:-translate-y-1 transition-transform duration-300" alt="Azure" />
+              <span class="text-sm font-semibold text-slate-700">Azure</span>
+            </div>
+            
             <!-- Front End -->
             <div data-caption="Re-rendering my life" class="tech-card flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-1">
               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" loading="lazy" decoding="async" class="w-12 h-12 mb-2 group-hover:rotate-12 transition-transform duration-300" alt="React" />
