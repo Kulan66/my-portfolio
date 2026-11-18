@@ -9,6 +9,13 @@ import '../styles/global.css';
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WGK Thamuditha | Software Engineer</title>
+
+    <!-- ⚡ Performance: connect early to external hosts + preload the hero photo -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="preconnect" href="https://api.dicebear.com" crossorigin />
+    <link rel="preconnect" href="https://encrypted-tbn0.gstatic.com" crossorigin />
+    <link rel="preload" as="image" href="/IMG_4435.JPG.jpeg" fetchpriority="high" />
+
     <script is:inline>document.documentElement.classList.add('js');</script>
     <style>
       /* Custom Animations */
@@ -173,10 +180,16 @@ import '../styles/global.css';
       }
     </style>
 
-    <!-- ✨ SECTION SCROLL-REVEAL (different movement per section) + BACK-TO-TOP STYLES -->
+    <!-- ✨ SECTION SCROLL-REVEAL (different movement per section) + BACK-TO-TOP + PERFORMANCE STYLES -->
     <style is:global>
       /* Prevents a sideways scrollbar flash while sections slide in from the sides */
       body { overflow-x: clip; }
+
+      /* ⚡ Skip rendering sections until they are near the screen (big win on phones) */
+      .js section:not(#hero) {
+        content-visibility: auto;
+        contain-intrinsic-size: auto 700px;
+      }
 
       /* Each section enters with its own modern movement.
          Only active when JS is on (the .js class is set at the top of <head>). */
@@ -187,7 +200,6 @@ import '../styles/global.css';
           transform 1.1s cubic-bezier(0.22, 1, 0.36, 1),
           filter 1s cubic-bezier(0.22, 1, 0.36, 1),
           clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1);
-        will-change: opacity, transform, filter, clip-path;
       }
 
       /* 1) Wipe up: content is revealed from bottom to top */
@@ -239,7 +251,39 @@ import '../styles/global.css';
       /* After the animation ends, remove clip-path so hover shadows / floating cards never get clipped */
       .js .reveal-section.is-visible.is-done {
         clip-path: none;
-        will-change: auto;
+      }
+
+      /* ⚡ Pause looping animations while their section / the hero is off screen */
+      .is-paused .card-float { animation-play-state: paused !important; }
+      .hero-offscreen .animate-blob,
+      .hero-offscreen .animate-float-dot,
+      .hero-offscreen .animate-float,
+      .hero-offscreen .animate-ping { animation-play-state: paused; }
+
+      /* 📱 Phones: lighter effects (no blur / clip-path / endless floating) */
+      @media (max-width: 767px) {
+        .js .reveal-section[data-reveal] {
+          clip-path: none !important;
+          filter: none !important;
+          transform: translateY(36px);
+          transition:
+            opacity 0.6s ease,
+            transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .js .reveal-section.is-visible[data-reveal] { transform: none; }
+
+        #hero .animate-blob {
+          animation: none;
+          filter: blur(40px) !important;
+        }
+      }
+      /* Phones, tablets and touch screens: no endless floating on every card */
+      @media (max-width: 1023px), (hover: none) {
+        .card-float { animation: none !important; }
+        nav {
+          backdrop-filter: blur(8px) !important;
+          -webkit-backdrop-filter: blur(8px) !important;
+        }
       }
 
       /* ⌨️ Typing caret for the Professional Profile text (no extra width, so lines never re-wrap) */
@@ -417,6 +461,8 @@ import '../styles/global.css';
         <img
           src="/IMG_4435.JPG.jpeg"
           alt="Kulan Thamuditha"
+          fetchpriority="high"
+          decoding="async"
           class="rounded-3xl shadow-2xl object-cover aspect-[4/5] w-full border border-white/60"
         />
 
@@ -581,7 +627,7 @@ import '../styles/global.css';
           <div class="space-y-4">
             <!-- Cardiff Met Degrees -->
             <div class="flex items-start gap-4 p-5 rounded-2xl bg-slate-50 border border-slate-100 hover:border-blue-200 hover:shadow-md hover:-translate-y-1 transition-all duration-300 card-float delay-float-1">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnE1m-kP86EKt6q_gJk5WYBZcKWUHI-C2pyA&s" alt="Cardiff Met Logo" class="w-16 h-16 object-contain bg-white p-2 rounded-lg shadow-sm hover:scale-110 transition-transform duration-300" />
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnE1m-kP86EKt6q_gJk5WYBZcKWUHI-C2pyA&s" alt="Cardiff Met Logo" loading="lazy" decoding="async" class="w-16 h-16 object-contain bg-white p-2 rounded-lg shadow-sm hover:scale-110 transition-transform duration-300" />
               <div>
                 <h3 class="font-bold text-lg text-slate-900">BSc (Hons) Software Engineering</h3>
                 <p class="text-slate-600 text-sm">Cardiff Metropolitan University (ICBT Campus)</p>
@@ -596,7 +642,7 @@ import '../styles/global.css';
 
             <!-- DS Senanayake -->
             <div class="flex items-start gap-4 p-5 rounded-2xl bg-slate-50 border border-slate-100 hover:border-cyan-200 hover:shadow-md hover:-translate-y-1 transition-all duration-300 card-float delay-float-2">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVLBawp8xNVsZZnqIv7NTXOap4oynFjSZ2Wg&s" alt="DSSC Crest" class="w-16 h-16 object-contain bg-white p-2 rounded-lg shadow-sm hover:scale-110 transition-transform duration-300" />
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVLBawp8xNVsZZnqIv7NTXOap4oynFjSZ2Wg&s" alt="DSSC Crest" loading="lazy" decoding="async" class="w-16 h-16 object-contain bg-white p-2 rounded-lg shadow-sm hover:scale-110 transition-transform duration-300" />
               <div>
                 <h3 class="font-bold text-lg text-slate-900">G.C.E. Advanced Level</h3>
                 <p class="text-slate-600 text-sm">D.S. Senanayake College</p>
@@ -624,7 +670,7 @@ import '../styles/global.css';
     <a href="https://stemlink.online/certificates/cmazjxazr0001s4mbz5i66ikq" target="_blank" rel="noopener noreferrer"
       class="p-4 rounded-2xl bg-white border border-slate-200 hover:shadow-xl hover:scale-[1.02] hover:-translate-y-1 hover:border-blue-300 transition-all duration-300 group flex flex-col sm:flex-row gap-4 items-center card-float delay-float-3">
       <div class="w-full sm:w-1/3 aspect-[4/3] rounded-lg overflow-hidden border border-slate-100 bg-slate-50 flex-shrink-0">
-        <img src="/cert-stemlink.jpg" alt="STEM Link Certificate" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
+        <img src="/cert-stemlink.jpg" alt="STEM Link Certificate" loading="lazy" decoding="async" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
       </div>
       <div class="flex-1 text-center sm:text-left">
         <h3 class="font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Full-Stack Engineer - AI Professional</h3>
@@ -638,7 +684,7 @@ import '../styles/global.css';
     <a href="https://www.linkedin.com/learning/certificates/6a44b27ed6f884f5056145c674aee05659371b8aa5f819e30bebfc52978b4aa5" target="_blank" rel="noopener noreferrer"
       class="p-4 rounded-2xl bg-white border border-slate-200 hover:shadow-xl hover:scale-[1.02] hover:-translate-y-1 hover:border-blue-300 transition-all duration-300 group flex flex-col sm:flex-row gap-4 items-center card-float delay-float-1">
       <div class="w-full sm:w-1/3 aspect-[4/3] rounded-lg overflow-hidden border border-slate-100 bg-slate-50 flex-shrink-0">
-        <img src="/cert-docker.jpg" alt="Docker Certificate" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
+        <img src="/cert-docker.jpg" alt="Docker Certificate" loading="lazy" decoding="async" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
       </div>
       <div class="flex-1 text-center sm:text-left">
         <h3 class="font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Docker Foundations Professional</h3>
@@ -652,7 +698,7 @@ import '../styles/global.css';
     <a href="https://www.linkedin.com/learning/certificates/bfcc6d013c6f4753dca81783137af6eb2e80690fa663659ae86d27cdbb60217b" target="_blank" rel="noopener noreferrer"
       class="p-4 rounded-2xl bg-white border border-slate-200 hover:shadow-xl hover:scale-[1.02] hover:-translate-y-1 hover:border-blue-300 transition-all duration-300 group flex flex-col sm:flex-row gap-4 items-center card-float delay-float-2">
       <div class="w-full sm:w-1/3 aspect-[4/3] rounded-lg overflow-hidden border border-slate-100 bg-slate-50 flex-shrink-0">
-        <img src="/cert-azure.jpg" alt="Azure Certificate" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
+        <img src="/cert-azure.jpg" alt="Azure Certificate" loading="lazy" decoding="async" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
       </div>
       <div class="flex-1 text-center sm:text-left">
         <h3 class="font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Microsoft Azure Fundamentals (AZ-900)</h3>
@@ -666,7 +712,7 @@ import '../styles/global.css';
     <a href="https://www.udemy.com/certificate/UC-28655809-766a-48bc-a559-e3110866e9cc/" target="_blank" rel="noopener noreferrer"
       class="p-4 rounded-2xl bg-white border border-slate-200 hover:shadow-xl hover:scale-[1.02] hover:-translate-y-1 hover:border-blue-300 transition-all duration-300 group flex flex-col sm:flex-row gap-4 items-center card-float delay-float-3">
       <div class="w-full sm:w-1/3 aspect-[4/3] rounded-lg overflow-hidden border border-slate-100 bg-slate-50 flex-shrink-0">
-        <img src="/cert-dataverse.jpg" alt="Dataverse Certificate" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
+        <img src="/cert-dataverse.jpg" alt="Dataverse Certificate" loading="lazy" decoding="async" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
       </div>
       <div class="flex-1 text-center sm:text-left">
         <h3 class="font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Microsoft Dataverse for Power Apps / Automate</h3>
@@ -680,7 +726,7 @@ import '../styles/global.css';
     <a href="https://www.udemy.com/certificate/UC-1c380ce9-8626-4e1c-a523-b2c13b76c267/" target="_blank" rel="noopener noreferrer"
       class="p-4 rounded-2xl bg-white border border-slate-200 hover:shadow-xl hover:scale-[1.02] hover:-translate-y-1 hover:border-blue-300 transition-all duration-300 group flex flex-col sm:flex-row gap-4 items-center card-float delay-float-1">
       <div class="w-full sm:w-1/3 aspect-[4/3] rounded-lg overflow-hidden border border-slate-100 bg-slate-50 flex-shrink-0">
-        <img src="/cert-sre.jpg" alt="SRE Fundamentals Certificate" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
+        <img src="/cert-sre.jpg" alt="SRE Fundamentals Certificate" loading="lazy" decoding="async" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
       </div>
       <div class="flex-1 text-center sm:text-left">
         <h3 class="font-bold text-slate-900 group-hover:text-blue-600 transition-colors">SRE Fundamentals: Mastering Site Reliability Engineering</h3>
@@ -767,51 +813,51 @@ import '../styles/global.css';
           <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
             <!-- Front End -->
             <div data-caption="Re-rendering my life" class="tech-card flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-1">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" class="w-12 h-12 mb-2 group-hover:rotate-12 transition-transform duration-300" alt="React" />
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" loading="lazy" decoding="async" class="w-12 h-12 mb-2 group-hover:rotate-12 transition-transform duration-300" alt="React" />
               <span class="text-sm font-semibold text-slate-700">React.js</span>
             </div>
             <div data-caption="Reactive, unlike my sleep schedule" class="tech-card flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-2">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vuejs/vuejs-original.svg" class="w-12 h-12 mb-2 group-hover:-rotate-12 transition-transform duration-300" alt="Vue" />
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vuejs/vuejs-original.svg" loading="lazy" decoding="async" class="w-12 h-12 mb-2 group-hover:-rotate-12 transition-transform duration-300" alt="Vue" />
               <span class="text-sm font-semibold text-slate-700">Vue.js</span>
             </div>
             <div data-caption="class=&quot;so many classes&quot;" class="tech-card flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-3">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" class="w-12 h-12 mb-2 group-hover:scale-110 transition-transform duration-300" alt="Tailwind" />
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" loading="lazy" decoding="async" class="w-12 h-12 mb-2 group-hover:scale-110 transition-transform duration-300" alt="Tailwind" />
               <span class="text-sm font-semibold text-slate-700">Tailwind CSS</span>
             </div>
             
             <!-- Back End -->
             <div data-caption="Write once, debug everywhere" class="tech-card flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-1">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" class="w-12 h-12 mb-2 group-hover:-translate-y-1 transition-transform duration-300" alt="Java" />
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" loading="lazy" decoding="async" class="w-12 h-12 mb-2 group-hover:-translate-y-1 transition-transform duration-300" alt="Java" />
               <span class="text-sm font-semibold text-slate-700">Java</span>
             </div>
             <div data-caption="Tiny server, big dreams" class="tech-card flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-2">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flask/flask-original.svg" class="w-12 h-12 mb-2 group-hover:scale-110 transition-transform duration-300" alt="Flask" />
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flask/flask-original.svg" loading="lazy" decoding="async" class="w-12 h-12 mb-2 group-hover:scale-110 transition-transform duration-300" alt="Flask" />
               <span class="text-sm font-semibold text-slate-700">Flask</span>
             </div>
             <div data-caption="app.get('/coffee') → 200 OK" class="tech-card flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-3">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg" class="w-12 h-12 mb-2 group-hover:rotate-12 transition-transform duration-300" alt="Express" />
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg" loading="lazy" decoding="async" class="w-12 h-12 mb-2 group-hover:rotate-12 transition-transform duration-300" alt="Express" />
               <span class="text-sm font-semibold text-slate-700">Express.js</span>
             </div>
 
             <!-- Database & Cloud -->
             <div data-caption="SELECT * FROM talent" class="tech-card flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-1">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azuresqldatabase/azuresqldatabase-original.svg" class="w-12 h-12 mb-2 group-hover:scale-110 transition-transform duration-300" alt="SQL" />
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azuresqldatabase/azuresqldatabase-original.svg" loading="lazy" decoding="async" class="w-12 h-12 mb-2 group-hover:scale-110 transition-transform duration-300" alt="SQL" />
               <span class="text-sm font-semibold text-slate-700">SQL</span>
             </div>
             <div data-caption="Schema? Where we're going we don't need schemas" class="tech-card flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-2">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg" class="w-12 h-12 mb-2 group-hover:-rotate-12 transition-transform duration-300" alt="MongoDB" />
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg" loading="lazy" decoding="async" class="w-12 h-12 mb-2 group-hover:-rotate-12 transition-transform duration-300" alt="MongoDB" />
               <span class="text-sm font-semibold text-slate-700">MongoDB</span>
             </div>
             <div data-caption="Cloud, but make it enterprise" class="tech-card flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-3">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg" class="w-12 h-12 mb-2 group-hover:-translate-y-1 transition-transform duration-300" alt="Azure" />
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg" loading="lazy" decoding="async" class="w-12 h-12 mb-2 group-hover:-translate-y-1 transition-transform duration-300" alt="Azure" />
               <span class="text-sm font-semibold text-slate-700">Azure</span>
             </div>
 
             <!-- VCS -->
             <div data-caption="git blame: always someone else (it was me)" class="tech-card flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:scale-105 hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 group card-float delay-float-1">
               <div class="flex gap-2 mb-2">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" class="w-8 h-8 group-hover:-translate-x-1 transition-transform duration-300" alt="Git" />
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bitbucket/bitbucket-original.svg" class="w-8 h-8 group-hover:translate-x-1 transition-transform duration-300" alt="Bitbucket" />
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" loading="lazy" decoding="async" class="w-8 h-8 group-hover:-translate-x-1 transition-transform duration-300" alt="Git" />
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bitbucket/bitbucket-original.svg" loading="lazy" decoding="async" class="w-8 h-8 group-hover:translate-x-1 transition-transform duration-300" alt="Bitbucket" />
               </div>
               <span class="text-sm font-semibold text-slate-700 text-center">Git & Bitbucket</span>
             </div>
@@ -965,7 +1011,7 @@ import '../styles/global.css';
   <button id="connect-toggle" type="button" aria-label="Let's Connect" aria-expanded="false"
     class="relative w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-2xl bg-purple-800 hover:scale-110 transition-transform duration-300">
     <img id="mascot" src="https://api.dicebear.com/9.x/avataaars/svg?seed=Kulan&backgroundColor=7e1f86"
-      alt="Let's Connect" class="w-full h-full object-cover" referrerpolicy="no-referrer" />
+      alt="Let's Connect" decoding="async" class="w-full h-full object-cover" referrerpolicy="no-referrer" />
   </button>
 </div>
 </div>
@@ -1183,7 +1229,10 @@ import '../styles/global.css';
   const face = (eyes) =>
     'https://api.dicebear.com/9.x/avataaars/svg?seed=Kulan&backgroundColor=7e1f86' + (eyes ? '&eyes=' + eyes : '');
   const faces = { base: face(''), blink: face('closed'), wink: face('wink'), happy: face('happy') };
-  Object.values(faces).forEach((u) => { const im = new Image(); im.src = u; });
+  // ⚡ Preload the extra faces only when the browser is idle (keeps first load fast)
+  const preloadFaces = () => Object.values(faces).forEach((u) => { const im = new Image(); im.src = u; });
+  if ('requestIdleCallback' in window) requestIdleCallback(preloadFaces, { timeout: 4000 });
+  else setTimeout(preloadFaces, 2500);
   let hovering = false;
   let menuOpen = false;
   const showFace = () => {
@@ -1193,7 +1242,7 @@ import '../styles/global.css';
   if (mascot && !reduce) {
     const blinkLoop = async () => {
       await sleep(2800 + Math.random() * 2500);
-      if (!hovering && !menuOpen) {
+      if (!hovering && !menuOpen && !document.hidden) {
         mascot.setAttribute('src', faces.blink);
         await sleep(140);
         showFace();
@@ -1227,10 +1276,11 @@ import '../styles/global.css';
   });
 </script>
 
-<!-- ✨ Section scroll-reveal (scroll-position based) + Profile typing + Back-to-top logic -->
+<!-- ✨ Section scroll-reveal (scroll-position based) + Profile typing + Back-to-top + performance logic -->
 <script>
   (() => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isPhone = window.matchMedia('(max-width: 767px)').matches;
 
     /* ---------- 🎞️ Section reveal on scroll (different movement for each section) ---------- */
     const sections = document.querySelectorAll('section:not(#hero)');
@@ -1276,17 +1326,24 @@ import '../styles/global.css';
       const rest = document.createElement('span');
       rest.style.visibility = 'hidden';
       rest.setAttribute('aria-hidden', 'true');
-      rest.textContent = full;
+      const typedNode = document.createTextNode('');
+      const restNode = document.createTextNode(full);
+      typed.appendChild(typedNode);
+      rest.appendChild(restNode);
       profile.append(typed, rest);
 
-      const SPEED = 14; // ms per character
+      const SPEED = isPhone ? 9 : 14; // ms per character (a bit faster on phones = less total work)
 
       startTyping = () => {
         const t0 = performance.now();
+        let lastN = -1;
         const step = (now) => {
           const n = Math.min(full.length, Math.floor((now - t0) / SPEED));
-          typed.textContent = full.slice(0, n);
-          rest.textContent = full.slice(n);
+          if (n !== lastN) {
+            lastN = n;
+            typedNode.data = full.slice(0, n);
+            restNode.data = full.slice(n);
+          }
           if (n < full.length) {
             requestAnimationFrame(step);
           } else {
@@ -1315,12 +1372,48 @@ import '../styles/global.css';
         typingStarted = true;
         setTimeout(startTyping, 600); // let the section reveal finish a bit first
       }
+
+      // Everything revealed -> stop listening (no more work on scroll)
+      if (pending.size === 0 && (typingStarted || !typingReady)) {
+        window.removeEventListener('scroll', onScroll);
+        window.removeEventListener('resize', onScroll);
+      }
     };
 
-    window.addEventListener('scroll', checkReveal, { passive: true });
-    window.addEventListener('resize', checkReveal);
+    // ⚡ Throttle to one check per animation frame
+    let revealTicking = false;
+    function onScroll() {
+      if (revealTicking) return;
+      revealTicking = true;
+      requestAnimationFrame(() => {
+        revealTicking = false;
+        checkReveal();
+      });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
     window.addEventListener('load', checkReveal);
     checkReveal();
+
+    /* ---------- ⚡ Pause looping animations while off screen ---------- */
+    if ('IntersectionObserver' in window) {
+      const sectionIO = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => e.target.classList.toggle('is-paused', !e.isIntersecting));
+        },
+        { rootMargin: '120px 0px' }
+      );
+      sections.forEach((sec) => sectionIO.observe(sec));
+
+      const heroEl = document.getElementById('hero');
+      if (heroEl) {
+        new IntersectionObserver(
+          (entries) => heroEl.classList.toggle('hero-offscreen', !entries[0].isIntersecting),
+          { rootMargin: '80px 0px' }
+        ).observe(heroEl);
+      }
+    }
 
     /* ---------- ⬆️ Back to top button ---------- */
     const topBtn = document.getElementById('back-to-top');
