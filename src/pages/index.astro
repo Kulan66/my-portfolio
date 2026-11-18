@@ -173,7 +173,7 @@ import '../styles/global.css';
       }
     </style>
 
-    <!-- ✨ UPDATED: SECTION SCROLL-REVEAL (different movement per section) + BACK-TO-TOP STYLES -->
+    <!-- ✨ SECTION SCROLL-REVEAL (different movement per section) + BACK-TO-TOP STYLES -->
     <style is:global>
       /* Prevents a sideways scrollbar flash while sections slide in from the sides */
       body { overflow-x: clip; }
@@ -970,7 +970,7 @@ import '../styles/global.css';
 </div>
 </div>
 
-<!-- ✨ NEW: Back to top button (bottom center) -->
+<!-- Back to top button (bottom center) -->
 <button id="back-to-top" type="button" aria-label="Back to top" title="Back to top">
   <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.6" viewBox="0 0 24 24" aria-hidden="true">
     <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
@@ -1227,7 +1227,7 @@ import '../styles/global.css';
   });
 </script>
 
-<!-- ✨ UPDATED: Section scroll-reveal (unique movement per section) + Profile typing + Back-to-top logic -->
+<!-- ✨ Section scroll-reveal (scroll-position based) + Profile typing + Back-to-top logic -->
 <script>
   (() => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1247,34 +1247,24 @@ import '../styles/global.css';
     };
     const fallback = ['rise-scale', 'zoom-blur', 'slide-left', 'flip-up', 'slide-right'];
 
-    if (!prefersReduced && 'IntersectionObserver' in window) {
+    // Sections waiting to be revealed
+    const pending = new Set();
+    if (!prefersReduced) {
       sections.forEach((sec, i) => {
         sec.classList.add('reveal-section');
         sec.dataset.reveal = variantById[sec.id] || fallback[i % fallback.length];
+        pending.add(sec);
       });
-
-      const revealObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              const el = entry.target;
-              el.classList.add('is-visible');
-              // after the animation, drop clip-path so shadows/floating cards are never clipped
-              setTimeout(() => el.classList.add('is-done'), 1400);
-              revealObserver.unobserve(el); // animate once
-            }
-          });
-        },
-        { threshold: 0.08, rootMargin: '0px 0px -8% 0px' }
-      );
-
-      sections.forEach((sec) => revealObserver.observe(sec));
     }
 
     /* ---------- ⌨️ Professional Profile typing animation ---------- */
     const profile = document.getElementById('profile-text');
     const aboutSec = document.getElementById('about');
-    if (profile && aboutSec && !prefersReduced && 'IntersectionObserver' in window) {
+    let typingReady = false;
+    let typingStarted = false;
+    let startTyping = () => {};
+
+    if (profile && aboutSec && !prefersReduced) {
       const full = profile.textContent.replace(/\s+/g, ' ').trim();
       profile.setAttribute('aria-label', full);
       profile.textContent = '';
@@ -1290,9 +1280,8 @@ import '../styles/global.css';
       profile.append(typed, rest);
 
       const SPEED = 14; // ms per character
-      let started = false;
 
-      const startTyping = () => {
+      startTyping = () => {
         const t0 = performance.now();
         const step = (now) => {
           const n = Math.min(full.length, Math.floor((now - t0) / SPEED));
@@ -1306,18 +1295,32 @@ import '../styles/global.css';
         };
         requestAnimationFrame(step);
       };
-
-      new IntersectionObserver(
-        (entries, obs) => {
-          if (entries[0].isIntersecting && !started) {
-            started = true;
-            obs.disconnect();
-            setTimeout(startTyping, 600); // let the section reveal finish a bit first
-          }
-        },
-        { threshold: 0.35 }
-      ).observe(aboutSec);
+      typingReady = true;
     }
+
+    /* Checks section positions (works even while a section is clipped/hidden, unlike IntersectionObserver) */
+    const checkReveal = () => {
+      const vh = window.innerHeight;
+
+      pending.forEach((el) => {
+        if (el.getBoundingClientRect().top < vh * 0.92) {
+          el.classList.add('is-visible');
+          // after the animation, drop clip-path so shadows/floating cards are never clipped
+          setTimeout(() => el.classList.add('is-done'), 1400);
+          pending.delete(el);
+        }
+      });
+
+      if (typingReady && !typingStarted && aboutSec.getBoundingClientRect().top < vh * 0.7) {
+        typingStarted = true;
+        setTimeout(startTyping, 600); // let the section reveal finish a bit first
+      }
+    };
+
+    window.addEventListener('scroll', checkReveal, { passive: true });
+    window.addEventListener('resize', checkReveal);
+    window.addEventListener('load', checkReveal);
+    checkReveal();
 
     /* ---------- ⬆️ Back to top button ---------- */
     const topBtn = document.getElementById('back-to-top');
