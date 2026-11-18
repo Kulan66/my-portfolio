@@ -173,26 +173,84 @@ import '../styles/global.css';
       }
     </style>
 
-    <!-- ✨ NEW: SECTION SCROLL-REVEAL + BACK-TO-TOP STYLES -->
+    <!-- ✨ UPDATED: SECTION SCROLL-REVEAL (different movement per section) + BACK-TO-TOP STYLES -->
     <style is:global>
-      /* Sections slide up + fade in as they enter the viewport.
+      /* Prevents a sideways scrollbar flash while sections slide in from the sides */
+      body { overflow-x: clip; }
+
+      /* Each section enters with its own modern movement.
          Only active when JS is on (the .js class is set at the top of <head>). */
       .js .reveal-section {
         opacity: 0;
-        transform: translateY(80px) scale(0.97);
         transition:
-          opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-          transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-        will-change: opacity, transform;
+          opacity 1s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 1.1s cubic-bezier(0.22, 1, 0.36, 1),
+          filter 1s cubic-bezier(0.22, 1, 0.36, 1),
+          clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+        will-change: opacity, transform, filter, clip-path;
       }
-      /* Alternate sections drift in slightly from the side for variety */
-      .js .reveal-section.from-left  { transform: translate(-60px, 60px) scale(0.97); }
-      .js .reveal-section.from-right { transform: translate(60px, 60px) scale(0.97); }
 
+      /* 1) Wipe up: content is revealed from bottom to top */
+      .js .reveal-section[data-reveal="clip-up"] {
+        clip-path: inset(100% 0 0 0);
+        transform: translateY(40px);
+      }
+      /* 2) Zoom + focus: scales up while blur clears */
+      .js .reveal-section[data-reveal="zoom-blur"] {
+        transform: scale(0.88);
+        filter: blur(14px);
+      }
+      /* 3) Glide from left with a slight skew */
+      .js .reveal-section[data-reveal="slide-left"] {
+        transform: translateX(-120px) skewX(6deg);
+        filter: blur(10px);
+      }
+      /* 4) 3D flip up like a card tilting toward you */
+      .js .reveal-section[data-reveal="flip-up"] {
+        transform: perspective(1400px) rotateX(18deg) translateY(70px);
+        transform-origin: 50% 0%;
+        filter: blur(6px);
+      }
+      /* 5) Rise + scale with soft focus */
+      .js .reveal-section[data-reveal="rise-scale"] {
+        transform: translateY(100px) scale(0.94);
+        filter: blur(8px);
+      }
+      /* 6) Glide from right with a slight skew */
+      .js .reveal-section[data-reveal="slide-right"] {
+        transform: translateX(120px) skewX(-6deg);
+        filter: blur(10px);
+      }
+      /* 7) Circle burst from the bottom center */
+      .js .reveal-section[data-reveal="circle"] {
+        clip-path: circle(0% at 50% 100%);
+        transform: scale(0.97);
+      }
+
+      /* Visible state */
       .js .reveal-section.is-visible {
         opacity: 1;
         transform: none;
+        filter: none;
+      }
+      .js .reveal-section.is-visible[data-reveal="clip-up"] { clip-path: inset(0 0 0 0); }
+      .js .reveal-section.is-visible[data-reveal="circle"] { clip-path: circle(150% at 50% 100%); }
+
+      /* After the animation ends, remove clip-path so hover shadows / floating cards never get clipped */
+      .js .reveal-section.is-visible.is-done {
+        clip-path: none;
         will-change: auto;
+      }
+
+      /* ⌨️ Typing caret for the Professional Profile text (no extra width, so lines never re-wrap) */
+      @keyframes borderBlink {
+        0%, 49% { border-color: #0891b2; }
+        50%, 100% { border-color: transparent; }
+      }
+      .type-caret-line {
+        border-right: 2px solid #0891b2;
+        margin-right: -2px;
+        animation: borderBlink 1s steps(1) infinite;
       }
 
       /* ⬆️ Back to top button (bottom center) */
@@ -417,7 +475,7 @@ import '../styles/global.css';
     <section id="about" class="py-12 px-6 bg-white border-t border-slate-100">
       <div class="max-w-4xl mx-auto text-center animate-fade-in delay-200">
         <h2 class="text-3xl font-extrabold mb-5 text-slate-900">Professional Profile</h2>
-        <p class="text-lg text-slate-600 leading-relaxed text-left md:text-center glass-card p-6 rounded-3xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 card-float">
+        <p id="profile-text" class="text-lg text-slate-600 leading-relaxed text-left md:text-center glass-card p-6 rounded-3xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 card-float">
           Application Support and Development professional with 2+ years of experience at AIA Sri Lanka, specializing in API engineering, technical support, Azure cloud services. Strong expertise in system design, modern frameworks, provider and data migrations, and application integrations. Holds a BSc (Hons) in Software Engineering from Cardiff Metropolitan University (UK). Strong proficiency in automation and scripting, with a proven track record of delivering scalable solutions, enhancing release efficiency, and collaborating effectively across infrastructure, project management, data and development teams.
         </p>
       </div>
@@ -443,7 +501,7 @@ import '../styles/global.css';
           <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
           <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
         </svg>
-        View Full Screen
+        Preview
       </a>
 
       <a
@@ -1169,29 +1227,41 @@ import '../styles/global.css';
   });
 </script>
 
-<!-- ✨ NEW: Section scroll-reveal + Back-to-top logic -->
+<!-- ✨ UPDATED: Section scroll-reveal (unique movement per section) + Profile typing + Back-to-top logic -->
 <script>
   (() => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    /* ---------- 🎞️ Section reveal on scroll ---------- */
-    // Every section except the hero gets the reveal animation (no HTML changes needed)
+    /* ---------- 🎞️ Section reveal on scroll (different movement for each section) ---------- */
     const sections = document.querySelectorAll('section:not(#hero)');
+
+    // Movement per section (see CSS: [data-reveal="..."])
+    const variantById = {
+      about: 'clip-up',        // wipes up
+      cv: 'zoom-blur',         // zooms in, blur clears
+      experience: 'slide-left',// glides from left
+      education: 'flip-up',    // 3D flip up
+      projects: 'rise-scale',  // rises + scales
+      skills: 'slide-right',   // glides from right
+      contact: 'circle',       // circle burst from bottom
+    };
+    const fallback = ['rise-scale', 'zoom-blur', 'slide-left', 'flip-up', 'slide-right'];
 
     if (!prefersReduced && 'IntersectionObserver' in window) {
       sections.forEach((sec, i) => {
         sec.classList.add('reveal-section');
-        // alternate: up, from-left, from-right for a little variety
-        if (i % 3 === 1) sec.classList.add('from-left');
-        if (i % 3 === 2) sec.classList.add('from-right');
+        sec.dataset.reveal = variantById[sec.id] || fallback[i % fallback.length];
       });
 
       const revealObserver = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              entry.target.classList.add('is-visible');
-              revealObserver.unobserve(entry.target); // animate once
+              const el = entry.target;
+              el.classList.add('is-visible');
+              // after the animation, drop clip-path so shadows/floating cards are never clipped
+              setTimeout(() => el.classList.add('is-done'), 1400);
+              revealObserver.unobserve(el); // animate once
             }
           });
         },
@@ -1199,6 +1269,54 @@ import '../styles/global.css';
       );
 
       sections.forEach((sec) => revealObserver.observe(sec));
+    }
+
+    /* ---------- ⌨️ Professional Profile typing animation ---------- */
+    const profile = document.getElementById('profile-text');
+    const aboutSec = document.getElementById('about');
+    if (profile && aboutSec && !prefersReduced && 'IntersectionObserver' in window) {
+      const full = profile.textContent.replace(/\s+/g, ' ').trim();
+      profile.setAttribute('aria-label', full);
+      profile.textContent = '';
+
+      // typed part (with caret as a right border) + invisible remainder, so the layout never jumps
+      const typed = document.createElement('span');
+      typed.className = 'type-caret-line';
+      typed.setAttribute('aria-hidden', 'true');
+      const rest = document.createElement('span');
+      rest.style.visibility = 'hidden';
+      rest.setAttribute('aria-hidden', 'true');
+      rest.textContent = full;
+      profile.append(typed, rest);
+
+      const SPEED = 14; // ms per character
+      let started = false;
+
+      const startTyping = () => {
+        const t0 = performance.now();
+        const step = (now) => {
+          const n = Math.min(full.length, Math.floor((now - t0) / SPEED));
+          typed.textContent = full.slice(0, n);
+          rest.textContent = full.slice(n);
+          if (n < full.length) {
+            requestAnimationFrame(step);
+          } else {
+            setTimeout(() => typed.classList.remove('type-caret-line'), 1800);
+          }
+        };
+        requestAnimationFrame(step);
+      };
+
+      new IntersectionObserver(
+        (entries, obs) => {
+          if (entries[0].isIntersecting && !started) {
+            started = true;
+            obs.disconnect();
+            setTimeout(startTyping, 600); // let the section reveal finish a bit first
+          }
+        },
+        { threshold: 0.35 }
+      ).observe(aboutSec);
     }
 
     /* ---------- ⬆️ Back to top button ---------- */
